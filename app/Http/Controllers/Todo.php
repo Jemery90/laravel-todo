@@ -18,6 +18,11 @@ class Todo extends Controller
         return view('app', ['todos' => $todos]);
     }
 
+    public function getCompletedTasks() {
+        $completedTasks = DB::table('todos')->where('complete', "=", 1)->get();
+        return view('completed', ['completedTasks' => $completedTasks]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

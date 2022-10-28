@@ -8,7 +8,21 @@
     </head>
     <body>
         <h1>Completed Tasks</h1>
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th>Task</th>
+                    <th>Completed On</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach($completedTasks as $completedTask)
+                <tr>
+                    <td>{{ $completedTask->task }}</td>
+                    <td>{{ $completedTask->completed_on }}</td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
     </body>
-
-
 </html>

@@ -2,3 +2,10 @@ body{
     background-color: rgb(168, 202, 232);
     text-align: center;
 }
+
+table, th, td {
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid;
+    font-size: xx-large;
+}
