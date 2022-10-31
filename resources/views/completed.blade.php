@@ -8,6 +8,10 @@
     </head>
     <body>
         <h1>Completed Tasks</h1>
+        <nav>
+        <a href="{{ route('home') }}">Home</a>
+        <a class="active" >Completed</a>
+    </nav>
         <table class="table table-sm">
             <thead>
                 <tr>
