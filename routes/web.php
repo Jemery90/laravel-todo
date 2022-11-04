@@ -18,3 +18,4 @@ Route::post('/todos', [Todo::class, 'store']);
 Route::put('/todos/{id}', [Todo::class, 'update']);
 Route::delete('/todos/{id}', [Todo::class, 'destroy']);
 Route::get('/completed', [Todo::class, 'getCompletedTasks'])->name('completed');
+Route::put('/completeTask/{id}', [Todo::class, 'completeTask']);

@@ -11,7 +11,7 @@
         <title>Todo</title>
     </head>
     <nav>
-        <a class="active" href="home">Home</a>
+        <a class="active">Home</a>
         <a href="{{ route('completed') }}">Completed</a>
     </nav>
     <body>
@@ -61,6 +61,11 @@
                     </div>
                 </div>
             </li>
+            <form action="{{ url('completeTask/'.$todo->id) }}" method="POST">
+                 @csrf
+                 @method('PUT')
+                <button class="buttonComplete" type="submit">Complete</button>
+            </form>
             <form action="{{ url('todos/'.$todo->id) }}" method="POST" style="display: inline-block;">
                 @csrf
                 @method('DELETE')
