@@ -4,10 +4,7 @@
         <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- Bootstrap CSS -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-        
-
+        <link rel="stylesheet" href="{{ asset('css/homepage.css') }}">
         <title>Todo</title>
     </head>
     <nav>
@@ -42,10 +39,20 @@
                 {{ session('status') }}
             </div>
         @endif
-        <ul class="list-group">
-        @foreach($todos as $todo)
-            <li class="list-group-item">
+        <table>
+            <thead>
+                <tr>
+                    <th>Task</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach($todos as $todo)
+            <tr>
+            <td class="list-group-item">
                 {{ $todo->task }}
+            </td>    
+            <td>
                 <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{{ $loop->index }}" aria-expanded="false">
                     Edit
                 </button>
@@ -60,7 +67,6 @@
                         </form>
                     </div>
                 </div>
-            </li>
             <form action="{{ url('completeTask/'.$todo->id) }}" method="POST">
                  @csrf
                  @method('PUT')
@@ -73,6 +79,10 @@
             </form>
         @endforeach
         </ul>
+        </td>
+        </tr>
+            </tbody>
+        </table>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
     </body>
