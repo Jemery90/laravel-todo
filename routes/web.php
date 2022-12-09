@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Todo;
+use App\Http\Controllers\RandomTask;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,9 +14,21 @@ use App\Http\Controllers\Todo;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', [Todo::class, 'index'])->name('home');
-Route::post('/todos', [Todo::class, 'store']);
-Route::put('/todos/{id}', [Todo::class, 'update']);
-Route::delete('/todos/{id}', [Todo::class, 'destroy']);
-Route::get('/completed', [Todo::class, 'getCompletedTasks'])->name('completed');
-Route::put('/completeTask/{id}', [Todo::class, 'completeTask']);
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';
+
+Route::get('/', [Todo::class, 'index'])->middleware(['auth'])->name('home');
+Route::post('/todos', [Todo::class, 'store'])
+->middleware(['auth']);
+Route::put('/todos/{id}', [Todo::class, 'update'])
+->middleware(['auth']);
+Route::delete('/todos/{id}', [Todo::class, 'destroy'])
+->middleware(['auth']);
+Route::get('/completed', [Todo::class, 'getCompletedTasks'])->middleware(['auth'])->name('completed');
+Route::put('/completeTask/{id}', [Todo::class, 'completeTask'])
+->middleware(['auth']);
+Route::get('/getrandomtask', [RandomTask::class, 'get'])->middleware(['auth'])->name('getRandomTask');

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
-use GuzzleHttp\Psr7\Message;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class Todo extends Controller
@@ -16,12 +16,16 @@ class Todo extends Controller
      */
     public function index()
     {
-        $todos = DB::table('todos')->where('complete', "=", false)->get();
+        $todos = DB::table('todos')->where('complete', "=", false)
+        ->where('user_id', '=', Auth::id())
+        ->get();
         return view('app', ['todos' => $todos]);
     }
 
     public function getCompletedTasks() {
-        $completedTasks = DB::table('todos')->where('complete', "=", true)->get();
+        $completedTasks = DB::table('todos')->where('complete', "=", true)
+        ->where('user_id', '=', Auth::id())
+        ->get();
         return view('completed', ['completedTasks' => $completedTasks]);
     }
 
@@ -48,7 +52,9 @@ class Todo extends Controller
         ]);
 
         DB::table('todos')->insert([
-            'task' => $request->task
+            'task' => $request->task,
+            'created_at' => Carbon::now(),
+            'user_id' => Auth::id()
         ]);
 
         return redirect('/')->with('status', 'Task added!');

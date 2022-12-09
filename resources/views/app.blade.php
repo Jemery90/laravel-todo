@@ -5,18 +5,26 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="{{ asset('css/homepage.css') }}">
-        <title>Todo</title>
+        <title>To-do</title>
     </head>
     <nav>
         <a class="active">Home</a>
         <a href="{{ route('completed') }}">Completed</a>
     </nav>
+    <hr>
     <body>
-        <h1>Todo</h1>
+        <h1>To-do</h1>
         <hr>
+        <h2>Random Task</h2>
+        <form action="{{ url('/getrandomtask') }}" method="GET">
+                 @csrf
+                 @method('GET')
+                <button class="buttonRandom" type="submit">Get Random Task</button>
+            </form>   
+        <hr>    
+            
         
         <h2>Add new task</h2>
-        <hr>
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
@@ -31,9 +39,9 @@
             <input type="text" class="form-control" name="task" placeholder="Add new task">
             <button class="btn btn-primary" type="submit">Store</button>
         </form>
+        <hr>
 
         <h2>Pending tasks</h2>
-        <hr>
         @if (session('status'))
             <div class="alert alert-success">
                 {{ session('status') }}
